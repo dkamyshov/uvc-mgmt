@@ -1,0 +1,24 @@
+@hover_active_color: green;
+
+.sidebar {
+  width: 200px;
+
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: black;
+    padding: 4pt;
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+      background-color: lighten(@hover_active_color, 10%);
+    }
+
+    &.active {
+      color: white;
+      background-color: @hover_active_color;
+    }
+  }
+}
