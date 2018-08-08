@@ -42,7 +42,7 @@ class Application extends React.Component<
             { id: 7, year: 2016, month: EMonth.APRIL, hours: 1 },
             { id: 8, year: 2016, month: EMonth.MAY, hours: 1 },
             { id: 9, year: 2016, month: EMonth.JUNE, hours: 1 },
-            { id: 10, year: 2016, month: EMonth.JULY, hours: 1 },
+            { id: 10, year: 2016, month: EMonth.JULY, hours: 100 },
             { id: 11, year: 2016, month: EMonth.AUGUST, hours: 1 },
           ],
         },
