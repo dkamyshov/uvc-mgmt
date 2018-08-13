@@ -5,6 +5,8 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack-serve --host 0.0.0.0 --port 7777",
+    "clean": "rm -rf build/",
+    "build": "webpack-cli --config webpack.config.production.js",
     "format": "prettier --single-quote --trailing-comma es5 --write src/**/*.{tsx,ts,js,less} ./*.js"
   },
   "author": "Danil Kamyshov <danil.kamyshov@gmail.com>",
@@ -28,6 +30,7 @@
     "typescript": "^3.0.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
+    "webpack-merge": "^4.1.4",
     "webpack-serve": "^2.0.2"
   }
 }
