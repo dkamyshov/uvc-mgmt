@@ -6,6 +6,9 @@ import { Alert } from '..';
 
 export interface ISingleStationProps {
   station: IStation;
+  orderUp: (id: number) => void;
+  orderDown: (id: number) => void;
+  stationCount: number;
 }
 
 type OwnProps<P> = Omit<P, ISingleStationProps>;
@@ -19,6 +22,8 @@ export function extractStation<P extends ISingleStationProps>(
         id: string;
       }> & {
         stations: IStation[];
+        orderUp: (id: number) => void;
+        orderDown: (id: number) => void;
       }
   > {
     render() {
@@ -27,6 +32,8 @@ export function extractStation<P extends ISingleStationProps>(
         match: {
           params: { id },
         },
+        orderUp,
+        orderDown,
       } = this.props;
 
       if (!/^\d+$/.test(id)) {
@@ -41,7 +48,16 @@ export function extractStation<P extends ISingleStationProps>(
         return <Alert message="Станция удалена или еще не создана" />;
       }
 
-      return <Component {...this.props} station={station} />;
+      return (
+        <Component
+          key={id}
+          {...this.props}
+          station={station}
+          stationCount={stations.length}
+          orderUp={orderUp}
+          orderDown={orderDown}
+        />
+      );
     }
   }
 

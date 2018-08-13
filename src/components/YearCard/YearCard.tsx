@@ -11,6 +11,7 @@ import {
 import RecordHoursInput from '../RecordHoursInput';
 
 interface IYearCardProps {
+  year: number;
   records: {
     [key: string]: IRecordExtended;
   };
@@ -46,10 +47,11 @@ const getSeasonClassname = (month: EMonth) => {
 
 class YearCard extends React.Component<IYearCardProps> {
   render() {
-    const { records } = this.props;
+    const { records, year } = this.props;
 
     return (
       <div className={style['year-card']}>
+        <h2>{year}</h2>
         <table>
           <thead>
             <tr>

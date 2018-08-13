@@ -4,10 +4,14 @@ import { Omit } from '..';
 
 export const StationsContext = React.createContext({
   stations: [] as IStation[],
+  orderUp: (id: number) => {},
+  orderDown: (id: number) => {},
 });
 
 export interface IStationsContextData {
   stations: IStation[];
+  orderUp: (id: number) => void;
+  orderDown: (id: number) => void;
 }
 
 export function withStations<P extends IStationsContextData>(
@@ -19,7 +23,14 @@ export function withStations<P extends IStationsContextData>(
     render() {
       return (
         <StationsContext.Consumer>
-          {value => <Component {...this.props} stations={value.stations} />}
+          {value => (
+            <Component
+              {...this.props}
+              stations={value.stations}
+              orderUp={value.orderUp}
+              orderDown={value.orderDown}
+            />
+          )}
         </StationsContext.Consumer>
       );
     }

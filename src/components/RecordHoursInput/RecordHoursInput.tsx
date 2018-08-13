@@ -37,6 +37,14 @@ class RecordHoursInput extends React.Component<
     value: String(this.props.value),
   };
 
+  componentDidUpdate(prevProps: IRecordHoursInputProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({
+        value: String(this.props.value),
+      });
+    }
+  }
+
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (validateRecordHoursInput(e.target.value)) {
       this.setState({

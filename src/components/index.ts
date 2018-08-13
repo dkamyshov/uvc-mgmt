@@ -6,3 +6,5 @@ export { default as Alert } from './Alert';
 export { default as YearlyView } from './YearlyView';
 export { default as YearCard } from './YearCard';
 export { default as RecordHoursInput } from './RecordHoursInput';
+export { default as InitialHoursInput } from './InitialHoursInput';
+export { default as PlanView } from './PlanView';

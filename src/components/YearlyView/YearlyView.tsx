@@ -25,6 +25,7 @@ class YearlyView extends React.Component<IYearlyViewProps> {
         {years.map(year => (
           <YearCard
             key={year}
+            year={year}
             records={getRecordsMap(records, year)}
             onHoursChange={this.props.onHoursChange}
           />
