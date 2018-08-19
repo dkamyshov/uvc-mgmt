@@ -6,19 +6,21 @@ export const StationsContext = React.createContext({
   stations: [] as IStation[],
   orderUp: (id: number) => {},
   orderDown: (id: number) => {},
+  addStation: (name: string, firstYear: number) => {},
 });
 
 export interface IStationsContextData {
   stations: IStation[];
   orderUp: (id: number) => void;
   orderDown: (id: number) => void;
+  addStation: (name: string, firstYear: number) => void;
 }
 
 export function withStations<P extends IStationsContextData>(
   Component: React.ComponentType<P>
 ) {
   class StationsContextWrapper extends React.Component<
-    Omit<P, IStationsContextData>
+    Omit<P, keyof IStationsContextData>
   > {
     render() {
       return (
@@ -29,6 +31,7 @@ export function withStations<P extends IStationsContextData>(
               stations={value.stations}
               orderUp={value.orderUp}
               orderDown={value.orderDown}
+              addStation={value.addStation}
             />
           )}
         </StationsContext.Consumer>

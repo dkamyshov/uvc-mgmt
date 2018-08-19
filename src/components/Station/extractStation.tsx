@@ -24,6 +24,7 @@ export function extractStation<P extends ISingleStationProps>(
         stations: IStation[];
         orderUp: (id: number) => void;
         orderDown: (id: number) => void;
+        addStation: (name: string, firstYear: number) => void;
       }
   > {
     render() {

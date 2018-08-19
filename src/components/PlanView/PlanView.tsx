@@ -1,13 +1,15 @@
 import * as React from 'react';
 import * as style from './index.less';
+import { PlanInput } from '..';
 
 interface IPlanViewProps {
   plan: number[];
+  update: (value: number, quarter: number) => void;
 }
 
 class PlanView extends React.Component<IPlanViewProps> {
   render() {
-    const { plan } = this.props;
+    const { plan, update } = this.props;
 
     return (
       <div className={style['plan-view']}>
@@ -23,7 +25,9 @@ class PlanView extends React.Component<IPlanViewProps> {
           <tbody>
             <tr>
               {plan.slice(0, 4).map((q, i) => (
-                <td key={i}>{q}</td>
+                <td key={i}>
+                  <PlanInput quarter={i} value={q} onChange={update} />
+                </td>
               ))}
             </tr>
           </tbody>

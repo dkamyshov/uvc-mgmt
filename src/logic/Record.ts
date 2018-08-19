@@ -124,6 +124,10 @@ export const getQuarters = (
   year: number
 ): number[] => {
   const periodRecords = getRecordsForPeriod(records, year);
+  if (periodRecords.length < 12) {
+    throw new Error();
+  }
+
   const quarters = [];
   for (let i = 0; i < 4; ++i) {
     const targetRecords = periodRecords.slice(i * 3, i * 3 + 3);
@@ -145,7 +149,7 @@ export const extendRecords = (
 
   for (let i = 0; i < records.length / 3; ++i) {
     const quarterRecords = sortedRecords.slice(i * 3, i * 3 + 3);
-    const quarterId = i % 3;
+    const quarterId = i % 4;
     const hoursInQuarter = quarterRecords.reduce(
       (result, record) => record.hours + result,
       0

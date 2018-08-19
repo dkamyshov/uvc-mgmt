@@ -15,7 +15,7 @@ interface IYearCardProps {
   records: {
     [key: string]: IRecordExtended;
   };
-  quarters: number[];
+  quarters?: number[];
   onHoursChange: (value: number, year: number, month: number) => void;
 }
 
@@ -121,7 +121,7 @@ class YearCard extends React.Component<IYearCardProps> {
             </tr>
           </tbody>
         </table>
-        {quarters.reduce((result, current) => result + current, 0) > 0 && (
+        {quarters && (
           <table>
             <thead>
               <tr>

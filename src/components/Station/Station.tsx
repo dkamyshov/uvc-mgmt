@@ -27,11 +27,7 @@ class Station extends React.Component<IStationProps, IStationState> {
       this.props.station.name !== prevProps.station.name
     ) {
       this.setState({
-        station: {
-          ...this.state.station,
-          name: this.props.station.name,
-          order: this.props.station.order,
-        },
+        station: copyStation(this.props.station),
       });
     }
   }
@@ -42,6 +38,18 @@ class Station extends React.Component<IStationProps, IStationState> {
 
   orderDown = () => {
     this.props.orderDown(this.state.station.id);
+  };
+
+  updatePlan = (value: number, quarter: number) => {
+    const newPlan = [...this.state.station.plan];
+    newPlan[quarter] = value;
+    this.setState({
+      station: {
+        ...this.state.station,
+        plan: newPlan,
+      },
+      modified: true,
+    });
   };
 
   cancelChanges = () => {
@@ -139,7 +147,7 @@ class Station extends React.Component<IStationProps, IStationState> {
           onHoursChange={this.onHoursChange}
         />
 
-        <PlanView plan={station.plan} />
+        <PlanView plan={station.plan} update={this.updatePlan} />
       </div>
     );
   }

@@ -23,15 +23,29 @@ class YearlyView extends React.Component<IYearlyViewProps> {
 
     return (
       <div className={style['yearly-view']}>
-        {years.map(year => (
-          <YearCard
-            key={year}
-            year={year}
-            records={getRecordsMap(records, year)}
-            quarters={getQuarters(records, year)}
-            onHoursChange={this.props.onHoursChange}
-          />
-        ))}
+        {years.map(year => {
+          try {
+            return (
+              <YearCard
+                key={year}
+                year={year}
+                records={getRecordsMap(records, year)}
+                quarters={getQuarters(records, year)}
+                onHoursChange={this.props.onHoursChange}
+              />
+            );
+          } catch (e) {
+            return (
+              <YearCard
+                key={year}
+                year={year}
+                records={getRecordsMap(records, year)}
+                quarters={void 0}
+                onHoursChange={this.props.onHoursChange}
+              />
+            );
+          }
+        })}
       </div>
     );
   }
