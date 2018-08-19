@@ -15,6 +15,7 @@ interface IYearCardProps {
   records: {
     [key: string]: IRecordExtended;
   };
+  quarters: number[];
   onHoursChange: (value: number, year: number, month: number) => void;
 }
 
@@ -45,9 +46,16 @@ const getSeasonClassname = (month: EMonth) => {
   }
 };
 
+const totalThisYear = (records: { [key: string]: IRecordExtended }): number => {
+  return Object.keys(records).reduce((result, currentKey) => {
+    const record = records[currentKey];
+    return result + record.hours;
+  }, 0);
+};
+
 class YearCard extends React.Component<IYearCardProps> {
   render() {
-    const { records, year } = this.props;
+    const { records, year, quarters } = this.props;
 
     return (
       <div className={style['year-card']}>
@@ -98,8 +106,41 @@ class YearCard extends React.Component<IYearCardProps> {
                 );
               }
             })}
+            <tr>
+              <td>ВСЕГО</td>
+              <td>
+                {records[EMonth.JANUARY] && records[EMonth.DECEMBER]
+                  ? totalThisYear(records)
+                  : '-'}
+              </td>
+              <td>
+                {records[EMonth.DECEMBER]
+                  ? records[EMonth.DECEMBER].total
+                  : '-'}
+              </td>
+            </tr>
           </tbody>
         </table>
+        {quarters.reduce((result, current) => result + current, 0) > 0 && (
+          <table>
+            <thead>
+              <tr>
+                <th>КВ1</th>
+                <th>КВ2</th>
+                <th>КВ3</th>
+                <th>КВ4</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{quarters[0]}</td>
+                <td>{quarters[1]}</td>
+                <td>{quarters[2]}</td>
+                <td>{quarters[3]}</td>
+              </tr>
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }

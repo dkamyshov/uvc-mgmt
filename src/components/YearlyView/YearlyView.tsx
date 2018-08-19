@@ -6,6 +6,7 @@ import {
   getRecordsMap,
   extendRecords,
   IRecordExtended,
+  getQuarters,
 } from '../../logic';
 import { YearCard } from '..';
 
@@ -27,6 +28,7 @@ class YearlyView extends React.Component<IYearlyViewProps> {
             key={year}
             year={year}
             records={getRecordsMap(records, year)}
+            quarters={getQuarters(records, year)}
             onHoursChange={this.props.onHoursChange}
           />
         ))}

@@ -8,3 +8,4 @@ export { default as YearCard } from './YearCard';
 export { default as RecordHoursInput } from './RecordHoursInput';
 export { default as InitialHoursInput } from './InitialHoursInput';
 export { default as PlanView } from './PlanView';
+export { default as ReportSelector } from './ReportSelector';

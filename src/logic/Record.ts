@@ -109,6 +109,31 @@ export const getRecordsMap = (
       return result;
     }, {});
 
+export const getRecordsForPeriod = (
+  records: IRecordExtended[],
+  year: number
+): IRecordExtended[] =>
+  records.filter(
+    record =>
+      (record.year === year && record.month >= EMonth.SEPTEMBER) ||
+      (record.year === year + 1 && record.month <= EMonth.AUGUST)
+  );
+
+export const getQuarters = (
+  records: IRecordExtended[],
+  year: number
+): number[] => {
+  const periodRecords = getRecordsForPeriod(records, year);
+  const quarters = [];
+  for (let i = 0; i < 4; ++i) {
+    const targetRecords = periodRecords.slice(i * 3, i * 3 + 3);
+    quarters.push(
+      targetRecords.reduce((result, current) => result + current.hours, 0)
+    );
+  }
+  return quarters;
+};
+
 export const extendRecords = (
   records: IRecord[],
   plan: number[],

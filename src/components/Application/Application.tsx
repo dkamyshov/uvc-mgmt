@@ -9,6 +9,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { StationsContext } from '../../utils/context';
+import ReportSelector from '../ReportSelector';
 
 interface IApplicationState {
   stations: IStation[];
@@ -163,6 +164,7 @@ class Application extends React.Component<
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/station/:id" component={Station} />
+              <Route path="/report" component={ReportSelector} />
             </Switch>
           </StationsContext.Provider>
         </div>

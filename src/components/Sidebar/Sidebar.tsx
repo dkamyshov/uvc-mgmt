@@ -16,6 +16,10 @@ class Sidebar extends React.Component<ISidebarProps> {
         <NavLink activeClassName={style['active']} exact to="/">
           Главная
         </NavLink>
+        <NavLink activeClassName={style['active']} to="/report">
+          Отчет
+        </NavLink>
+        <NavLink to="/">---</NavLink>
         {stations.map((station, i) => (
           <NavLink
             key={station.id}
