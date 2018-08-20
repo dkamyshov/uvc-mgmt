@@ -35,7 +35,7 @@ class AddStation extends React.Component<IAddStationProps> {
           onSubmit={this.addStation}
           validate={validateForm}
           render={({ handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
+            <form className={style['form']} onSubmit={handleSubmit}>
               <Field
                 name="name"
                 render={({ input, meta }) => (
