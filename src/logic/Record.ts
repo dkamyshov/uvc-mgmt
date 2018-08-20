@@ -28,6 +28,21 @@ export const monthsIterable = [
   EMonth.DECEMBER,
 ];
 
+export const reportMonthsIterable = [
+  EMonth.SEPTEMBER,
+  EMonth.OCTOBER,
+  EMonth.NOVEMBER,
+  EMonth.DECEMBER,
+  EMonth.JANUARY,
+  EMonth.FEBRUARY,
+  EMonth.MARCH,
+  EMonth.APRIL,
+  EMonth.MAY,
+  EMonth.JUNE,
+  EMonth.JULY,
+  EMonth.AUGUST,
+];
+
 export const getMonthRussianName = (month: EMonth): string => {
   switch (month) {
     case EMonth.JANUARY:
@@ -147,7 +162,18 @@ export const extendRecords = (
   const result = [] as IRecordExtended[];
   let total = initialHours;
 
-  for (let i = 0; i < records.length / 3; ++i) {
+  for (let i = 0; i < records.length; ++i) {
+    const record = sortedRecords[i];
+    total += record.hours;
+
+    result.push({
+      ...record,
+      overflow: record.hours > plan[record.month],
+      total,
+    });
+  }
+
+  /*for (let i = 0; i < records.length / 3; ++i) {
     const quarterRecords = sortedRecords.slice(i * 3, i * 3 + 3);
     const quarterId = i % 4;
     const hoursInQuarter = quarterRecords.reduce(
@@ -165,7 +191,7 @@ export const extendRecords = (
         total,
       });
     }
-  }
+  }*/
 
   return result;
 };

@@ -5,8 +5,8 @@ import { EMonth } from '../../logic';
 
 interface IPlanInputProps {
   value: number;
-  quarter: number;
-  onChange: (value: number, quarter: number) => void;
+  month: number;
+  onChange: (value: number, month: number) => void;
 }
 
 interface IPlanInputState {
@@ -45,7 +45,7 @@ class PlanInput extends React.Component<IPlanInputProps, IPlanInputState> {
       });
 
       if (mayLiftState(e.target.value)) {
-        this.props.onChange(parseInt(e.target.value, 10), this.props.quarter);
+        this.props.onChange(parseInt(e.target.value, 10), this.props.month);
       }
     } else {
       e.preventDefault();

@@ -7,6 +7,7 @@ export const StationsContext = React.createContext({
   orderUp: (id: number) => {},
   orderDown: (id: number) => {},
   addStation: (name: string, firstYear: number) => {},
+  saveStation: (station: IStation) => {},
 });
 
 export interface IStationsContextData {
@@ -14,6 +15,7 @@ export interface IStationsContextData {
   orderUp: (id: number) => void;
   orderDown: (id: number) => void;
   addStation: (name: string, firstYear: number) => void;
+  saveStation: (station: IStation) => void;
 }
 
 export function withStations<P extends IStationsContextData>(
@@ -32,6 +34,7 @@ export function withStations<P extends IStationsContextData>(
               orderUp={value.orderUp}
               orderDown={value.orderDown}
               addStation={value.addStation}
+              saveStation={value.saveStation}
             />
           )}
         </StationsContext.Consumer>

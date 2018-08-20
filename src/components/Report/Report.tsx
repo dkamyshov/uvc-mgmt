@@ -1,6 +1,15 @@
 import * as React from 'react';
+import * as style from './index.less';
 import { withStations, IStationsContextData } from '../../utils/context';
-import { extendRecords, getRecordsForPeriod, getQuarters } from '../../logic';
+import {
+  extendRecords,
+  getRecordsForPeriod,
+  getMonthRussianName,
+  reportMonthsIterable,
+  getQuarters,
+} from '../../logic';
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 type IReportProps = IStationsContextData & {
   year: number;
@@ -20,23 +29,42 @@ class Report extends React.Component<IReportProps> {
       );
 
       try {
-        const quarters = getQuarters(extendedRecords, year);
+        const records = getRecordsForPeriod(extendedRecords, year);
+
+        if (records.length < 12) {
+          throw new Error();
+        }
 
         results.push(
           <tr key={station.id}>
-            <td>{station.name}</td>
-            <td>{quarters[0]}</td>
-            <td>{quarters[1]}</td>
-            <td>{quarters[2]}</td>
-            <td>{quarters[3]}</td>
-            <td>{quarters.reduce((result, current) => result + current, 0)}</td>
+            <td>
+              <Link to={`/station/${station.id}`}>{station.name}</Link>
+            </td>
+            <td>{records[0].total - records[0].hours}</td>
+            {records.map(record => (
+              <td
+                className={cn(style['numeric-cell'], {
+                  [style['overflow']]:
+                    record.hours > station.plan[record.month],
+                })}
+                key={record.month}
+              >
+                {record.hours}
+              </td>
+            ))}
+            <td className={style['numeric-cell']}>
+              {records.reduce((result, current) => result + current.hours, 0)}
+            </td>
+            <td>{records[11].total}</td>
           </tr>
         );
       } catch (e) {
         results.push(
           <tr key={station.id}>
-            <td>{station.name}</td>
-            <td colSpan={5}>нет записей за этот год</td>
+            <td>
+              <Link to={`/station/${station.id}`}>{station.name}</Link>
+            </td>
+            <td colSpan={15}>нет записей за этот год</td>
           </tr>
         );
       }
@@ -44,15 +72,16 @@ class Report extends React.Component<IReportProps> {
 
     return (
       <div>
-        <table>
+        <table className={style['report-table']}>
           <thead>
             <tr>
-              <td>Станция</td>
-              <td>КВ1</td>
-              <td>КВ2</td>
-              <td>КВ3</td>
-              <td>КВ4</td>
-              <td>ЗА ГОД</td>
+              <th>Станция</th>
+              <th>НА НАЧАЛО</th>
+              {reportMonthsIterable.map(month => (
+                <th key={month}>{getMonthRussianName(month)}</th>
+              ))}
+              <th>ЗА ГОД</th>
+              <th>НА КОНЕЦ</th>
             </tr>
           </thead>
           <tbody>{results}</tbody>

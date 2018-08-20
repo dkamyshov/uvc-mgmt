@@ -6,6 +6,19 @@ class Home extends React.Component {
     return (
       <div className={style['home']}>
         <h1>UVC MGMT</h1>
+
+        <p>
+          Программный комплекс для отслеживания наработки станция на УВЦ ИГЭУ.
+        </p>
+
+        <p>
+          Пожелания, баги, новые версии:{' '}
+          <a href="mailto:danil.kamyshov@gmail.com">danil.kamyshov@gmail.com</a>
+          ,{' '}
+          <a target="_blank" href="https://vk.com/alhayat">
+            vk
+          </a>
+        </p>
       </div>
     );
   }

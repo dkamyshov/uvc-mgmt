@@ -129,6 +129,7 @@ class YearCard extends React.Component<IYearCardProps> {
                 <th>КВ2</th>
                 <th>КВ3</th>
                 <th>КВ4</th>
+                <th>ГОД</th>
               </tr>
             </thead>
             <tbody>
@@ -137,6 +138,9 @@ class YearCard extends React.Component<IYearCardProps> {
                 <td>{quarters[1]}</td>
                 <td>{quarters[2]}</td>
                 <td>{quarters[3]}</td>
+                <td>
+                  {quarters.reduce((result, current) => result + current, 0)}
+                </td>
               </tr>
             </tbody>
           </table>

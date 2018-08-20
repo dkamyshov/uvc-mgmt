@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as style from './index.less';
 import { PlanInput } from '..';
+import { monthsIterable, getMonthRussianName } from '../../logic';
 
 interface IPlanViewProps {
   plan: number[];
-  update: (value: number, quarter: number) => void;
+  update: (value: number, month: number) => void;
 }
 
 class PlanView extends React.Component<IPlanViewProps> {
@@ -16,17 +17,16 @@ class PlanView extends React.Component<IPlanViewProps> {
         <table>
           <thead>
             <tr>
-              <th>КВ1</th>
-              <th>КВ2</th>
-              <th>КВ3</th>
-              <th>КВ4</th>
+              {monthsIterable.map(month => (
+                <th key={month}>{getMonthRussianName(month)}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              {plan.slice(0, 4).map((q, i) => (
+              {plan.slice(0, 12).map((q, i) => (
                 <td key={i}>
-                  <PlanInput quarter={i} value={q} onChange={update} />
+                  <PlanInput month={i} value={q} onChange={update} />
                 </td>
               ))}
             </tr>

@@ -8,6 +8,7 @@ export interface ISingleStationProps {
   station: IStation;
   orderUp: (id: number) => void;
   orderDown: (id: number) => void;
+  saveStation: (station: IStation) => void;
   stationCount: number;
 }
 
@@ -25,6 +26,7 @@ export function extractStation<P extends ISingleStationProps>(
         orderUp: (id: number) => void;
         orderDown: (id: number) => void;
         addStation: (name: string, firstYear: number) => void;
+        saveStation: (station: IStation) => void;
       }
   > {
     render() {
@@ -35,6 +37,7 @@ export function extractStation<P extends ISingleStationProps>(
         },
         orderUp,
         orderDown,
+        saveStation,
       } = this.props;
 
       if (!/^\d+$/.test(id)) {
@@ -57,6 +60,7 @@ export function extractStation<P extends ISingleStationProps>(
           stationCount={stations.length}
           orderUp={orderUp}
           orderDown={orderDown}
+          saveStation={saveStation}
         />
       );
     }

@@ -1,6 +1,7 @@
 @hover_active_color: green;
 
 .sidebar {
+  min-width: 200px;
   width: 200px;
 
   display: flex;
@@ -21,4 +22,7 @@
       background-color: @hover_active_color;
     }
   }
+
+  overflow-y: scroll;
+  max-height: 100vh;
 }
