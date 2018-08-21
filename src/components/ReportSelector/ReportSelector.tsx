@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as style from './index.less';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { withStations, IStationsContextData } from '../../utils/context';
 import { IStation } from '../../logic';
 import Report from '../Report/Report';
 
-type IReportSelectorProps = RouteComponentProps<any> & IStationsContextData;
+type IReportSelectorProps = RouteComponentProps<{
+  year: string;
+}> &
+  IStationsContextData;
 interface IReportSelectorState {
   year: number;
 }
@@ -27,18 +30,42 @@ const getAllStationYears = (stations: IStation[]) => {
   return Array.from({ length: maxYear - minYear }, (_v, k) => k + minYear);
 };
 
+const getYearFromRoute = (year?: string): number => {
+  try {
+    if (!year) throw null;
+    const result = parseInt(year, 10);
+    if (0 >= result || result >= 9999) {
+      throw null;
+    }
+    return result;
+  } catch (e) {
+    return -1;
+  }
+};
+
 class ReportSelector extends React.Component<
   IReportSelectorProps,
   IReportSelectorState
 > {
   state = {
-    year: -1,
+    year: getYearFromRoute(this.props.match.params.year),
   };
 
+  componentDidUpdate(prevProps: IReportSelectorProps) {
+    if (this.props.match.params.year !== prevProps.match.params.year) {
+      this.setState({
+        year: getYearFromRoute(this.props.match.params.year),
+      });
+    }
+  }
+
   selectYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({
-      year: parseInt(e.target.value),
-    });
+    const numericYear = parseInt(e.target.value, 10);
+    this.props.history.push(`/report/${numericYear}`);
+
+    /*this.setState({
+      year: parseInt(e.target.value, 10),
+    });*/
   };
 
   render() {
@@ -67,4 +94,4 @@ class ReportSelector extends React.Component<
   }
 }
 
-export default withStations(ReportSelector);
+export default withRouter(withStations(ReportSelector));

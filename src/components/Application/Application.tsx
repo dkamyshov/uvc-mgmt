@@ -210,7 +210,7 @@ class Application extends React.Component<
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/station/:id" component={Station} />
-              <Route path="/report" component={ReportSelector} />
+              <Route path="/report/:year?" component={ReportSelector} />
               <Route path="/add" component={AddStation} />
               <Route path="/export" component={Export} />
               <Route path="/import" component={CImport} />
