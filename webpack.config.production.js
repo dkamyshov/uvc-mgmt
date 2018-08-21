@@ -8,7 +8,7 @@ function getProductionConfig(mode) {
     devtool: 'none',
 
     output: {
-      filename: '[name].' + mode + '.[contenthash].js',
+      filename: '[name].' + mode + '-' + package.version + '-[contenthash].js',
       publicPath: './',
     },
   });

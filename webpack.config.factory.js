@@ -29,7 +29,7 @@ module.exports.getConfig = function(mode) {
     output: {
       path: path.resolve(__dirname, 'build'),
       publicPath: '/',
-      filename: '[name].' + mode + '.js',
+      filename: '[name].' + mode + '-' + package.version + '.js',
     },
 
     resolve: {
@@ -63,7 +63,7 @@ module.exports.getConfig = function(mode) {
       new HtmlWebpackPlugin({
         template: './src/index.html',
         mode: mode,
-        filename: mode + '.html',
+        filename: mode + '.' + package.version + '.html',
       }),
 
       new webpack.DefinePlugin({
