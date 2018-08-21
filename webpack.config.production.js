@@ -1,13 +1,17 @@
 var package = require('./package.json');
 var merge = require('webpack-merge');
-var base = require('./webpack.config');
+var base = require('./webpack.config.factory');
 
-module.exports = merge(base, {
-  mode: 'production',
-  devtool: 'none',
+function getProductionConfig(mode) {
+  return merge(base.getConfig(mode), {
+    mode: 'production',
+    devtool: 'none',
 
-  output: {
-    filename: '[name].' + package.mode + '.[contenthash].js',
-    publicPath: './',
-  },
-});
+    output: {
+      filename: '[name].' + mode + '.[contenthash].js',
+      publicPath: './',
+    },
+  });
+}
+
+module.exports = [getProductionConfig('vk'), getProductionConfig('uvc')];
