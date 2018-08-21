@@ -22,6 +22,12 @@ class Sidebar extends React.Component<ISidebarProps> {
         <NavLink activeClassName={style['active']} to="/add">
           Добавить станцию
         </NavLink>
+        <NavLink activeClassName={style['active']} to="/export">
+          Экспорт
+        </NavLink>
+        <NavLink activeClassName={style['active']} to="/import">
+          Импорт
+        </NavLink>
         <NavLink to="/">---</NavLink>
         {stations.map((station, i) => (
           <NavLink

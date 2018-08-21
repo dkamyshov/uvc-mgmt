@@ -1,3 +1,4 @@
+var package = require('./package.json');
 var merge = require('webpack-merge');
 var base = require('./webpack.config');
 
@@ -6,7 +7,7 @@ module.exports = merge(base, {
   devtool: 'none',
 
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].' + package.mode + '.[contenthash].js',
     publicPath: './',
   },
 });

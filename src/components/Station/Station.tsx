@@ -176,6 +176,34 @@ class Station extends React.Component<IStationProps, IStationState> {
     }
   };
 
+  changeName = () => {
+    const newName = prompt(
+      'Введите новое имя станции:',
+      this.state.station.name
+    );
+
+    if (!newName) {
+      return;
+    }
+
+    if (newName.trim().length === 0) {
+      alert('Введите имя!');
+      return;
+    }
+
+    this.setState({
+      station: {
+        ...this.state.station,
+        name: newName,
+      },
+      modified: true,
+    });
+  };
+
+  deleteStation = () => {
+    this.props.deleteStation(this.state.station.id);
+  };
+
   render() {
     const { stationCount } = this.props;
     const { station, modified } = this.state;
@@ -227,6 +255,16 @@ class Station extends React.Component<IStationProps, IStationState> {
             value="Удалить последний год"
             disabled={station.records.length < 24}
           />
+
+          <input
+            type="button"
+            onClick={this.deleteStation}
+            value="Удалить станцию"
+          />
+
+          <br />
+
+          <input type="button" onClick={this.changeName} value="Изменить имя" />
         </div>
 
         <InitialHoursInput

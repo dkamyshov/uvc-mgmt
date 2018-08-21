@@ -1,6 +1,14 @@
 import * as React from 'react';
 import * as style from './index.less';
-import { Sidebar, Home, Station, ReportSelector, AddStation } from '..';
+import {
+  Sidebar,
+  Home,
+  Station,
+  ReportSelector,
+  AddStation,
+  Export,
+  CImport,
+} from '..';
 import { IStation, EMonth, sortStations } from '../../logic';
 import {
   withRouter,
@@ -11,7 +19,6 @@ import {
 import { StationsContext } from '../../utils/context';
 import { generateHours } from '../../utils';
 import { convertLegacyData } from '../../utils/convertLegacyData';
-import { legacyData } from '../../assets/legacy';
 import { getStationData, saveStationData } from '../../utils/getData';
 
 interface IApplicationState {
@@ -152,6 +159,35 @@ class Application extends React.Component<
     );
   };
 
+  deleteStation = (id: number) => {
+    if (
+      confirm(
+        'Вы уверены, что хотите удалить станцию? Это действие нельзя отменить!'
+      )
+    ) {
+      const sortedStations = sortStations(this.state.stations).filter(
+        station => station.id !== id
+      );
+      const newStations = [] as IStation[];
+
+      for (let i = 0; i < sortedStations.length; ++i) {
+        newStations.push({
+          ...sortedStations[i],
+          order: i,
+        });
+      }
+
+      this.setState(
+        {
+          stations: newStations,
+        },
+        () => {
+          saveStationData(this.state.stations);
+        }
+      );
+    }
+  };
+
   render() {
     const { stations } = this.state;
     const sortedStations = sortStations(stations);
@@ -168,6 +204,7 @@ class Application extends React.Component<
               orderDown: this.orderDown,
               addStation: this.addStation,
               saveStation: this.saveStation,
+              deleteStation: this.deleteStation,
             }}
           >
             <Switch>
@@ -175,6 +212,8 @@ class Application extends React.Component<
               <Route path="/station/:id" component={Station} />
               <Route path="/report" component={ReportSelector} />
               <Route path="/add" component={AddStation} />
+              <Route path="/export" component={Export} />
+              <Route path="/import" component={CImport} />
             </Switch>
           </StationsContext.Provider>
         </div>

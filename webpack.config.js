@@ -1,5 +1,7 @@
+var package = require('./package.json');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -12,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
-    filename: '[name].js',
+    filename: '[name].' + package.mode + '.js',
   },
 
   resolve: {
@@ -45,6 +47,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      mode: package.mode,
+    }),
+
+    new webpack.DefinePlugin({
+      __MODE: JSON.stringify(package.mode),
     }),
   ],
 };

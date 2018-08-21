@@ -16,13 +16,30 @@ interface IYearlyViewProps {
 }
 
 class YearlyView extends React.Component<IYearlyViewProps> {
+  private ref: React.RefObject<HTMLDivElement>;
+
+  constructor(props: IYearlyViewProps) {
+    super(props);
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.ref.current) {
+      const e = this.ref.current!;
+
+      try {
+        e.scrollLeft = e.scrollWidth - e.clientWidth;
+      } catch (e) {}
+    }
+  }
+
   render() {
     const { records } = this.props;
 
     const years = yearsSpan(records);
 
     return (
-      <div className={style['yearly-view']}>
+      <div ref={this.ref} className={style['yearly-view']}>
         {years.map(year => {
           try {
             return (

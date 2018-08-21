@@ -9,6 +9,7 @@ export interface ISingleStationProps {
   orderUp: (id: number) => void;
   orderDown: (id: number) => void;
   saveStation: (station: IStation) => void;
+  deleteStation: (id: number) => void;
   stationCount: number;
 }
 
@@ -27,6 +28,7 @@ export function extractStation<P extends ISingleStationProps>(
         orderDown: (id: number) => void;
         addStation: (name: string, firstYear: number) => void;
         saveStation: (station: IStation) => void;
+        deleteStation: (id: number) => void;
       }
   > {
     render() {
